@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inglês de Viagem</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+            background: #f9fafb;
+            color: #1a1a1a;
+        }
+        
+        .container {
+            max-width: 440px;
+            margin: 0 auto;
+            padding: 20px 16px;
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .emoji-big {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+        
+        h1 {
+            font-size: 21px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .subtitle {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.5;
+        }
+        
+        .tip-box {
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(99,102,241,0.1);
+        }
+        
+        .tip-box.tdah {
+            background: linear-gradient(135deg, #EEF2FF, #F0FDFA);
+            border-color: rgba(99,102,241,0.1);
+        }
+        
+        .tip-box.ouro {
+            background: linear-gradient(135deg, #FFF7ED, #FFFBEB);
+            border-color: rgba(245,158,11,0.15);
+        }
+        
+        .tip-title {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .tip-box.tdah .tip-title {
+            color: #6366F1;
+        }
+        
+        .tip-box.ouro .tip-title {
+            color: #D97706;
+        }
+        
+        .tip-text {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .modes {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        
+        .mode-btn {
+            flex: 1;
+            padding: 12px 6px;
+            border-radius: 14px;
+            border: 2px solid #6366F1;
+            background: #EEF2FF;
+            cursor: pointer;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #6366F1;
+            transition: all 0.2s;
+        }
+        
+        .mode-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .mode-btn .emoji {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .mode-btn .sub {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        .categories {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .cat-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #999;
+            margin-bottom: 8px;
+            padding-left: 2px;
+        }
+        
+        .cat-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(0,0,0,0.06);
+            background: #fff;
+            cursor: pointer;
+            text-align: left;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+            transition: all 0.2s;
+        }
+        
+        .cat-btn:hover {
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(99,102,241,0.15);
+        }
+        
+        .cat-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        
+        .cat-info {
+            flex: 1;
+        }
+        
+        .cat-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .cat-count {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .check {
+            width: 26px;
+            height: 26px;
+            border-radius: 99px;
+            background: #10B981;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 22px;
+            padding: 4px;
+            color: #666;
+            margin-right: 10px;
+        }
+        
+        .top-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        
+        .flashcard {
+            min-height: 220px;
+            border-radius: 20px;
+            padding: 28px 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 14px;
+            background: #fff;
+            border: 2px solid rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            cursor: pointer;
+            margin-top: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .flashcard.flipped {
+            border-color: currentColor;
+            box-shadow: 0 8px 32px rgba(99,102,241,0.15);
+        }
+        
+        .card-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #999;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        
+        .card-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.3;
+        }
+        
+        .card-hand {
+            width: 44px;
+            height: 44px;
+            border-radius: 99px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-top: 6px;
+        }
+        
+        .card-sound {
+            margin-top: 2px;
+            padding: 7px 18px;
+            border-radius: 99px;
+            font-size: 16px;
+            font-weight: 600;
+            font-style: italic;
+        }
+        
+        .card-hint {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 2px;
+        }
+        
+        .progress-bar {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            padding: 0 4px;
+            margin-top: 16px;
+        }
+        
+        .progress-bar div {
+            flex: 1;
+            height: 5px;
+            border-radius: 99px;
+            background: rgba(128,128,128,0.15);
+            transition: background 0.3s;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        
+        button {
+            padding: 13px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.2s;
+        }
+        
+        .btn-next {
+            border: none !important;
+            background: #6366F1 !important;
+            color: #fff !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+        }
+        
+        .btn-next:hover {
+            transform: scale(1.02);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+        
+        .hint {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 13px;
+            color: #6366F1;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .quiz-option {
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: #fff;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+        
+        .quiz-option:hover {
+            border-color: #6366F1;
+            background: #EEF2FF;
+        }
+        
+        .option-letter {
+            width: 28px;
+            height: 28px;
+            border-radius: 99px;
+            background: rgba(99,102,241,0.15);
+            color: #6366F1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .question-box {
+            margin-top: 18px;
+            border-radius: 18px;
+            padding: 28px 20px;
+            text-align: center;
+            background: #fff;
+            border: 2px solid rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app"></div>
+    
+    <script>
+        // ─── DATA ───────────────────────────────────────────────
+        const CATEGORIES = [
+            {
+                id: "airport", emoji: "✈️", label: "Aeroporto", color: "#3B82F6",
+                phrases: [
+                    { en: "Where is the check-in?", pt: "Onde é o check-in?", sound: "uér is de tchék-in?" },
+                    { en: "Here is my passport.", pt: "Aqui está meu passaporte.", sound: "ríar is mái péssport." },
+                    { en: "Where is gate 5?", pt: "Onde é o portão 5?", sound: "uér is guêit fáiv?" },
+                    { en: "I have one bag.", pt: "Eu tenho uma mala.", sound: "ái rév uan bég." },
+                    { en: "Window seat, please.", pt: "Assento na janela, por favor.", sound: "uíndou sít, plíiz." },
+                    { en: "Where is baggage claim?", pt: "Onde é a esteira de bagagem?", sound: "uér is béguedj cléim?" },
+                    { en: "Is this my flight?", pt: "Este é meu voo?", sound: "is dís mái fláit?" },
+                    { en: "I need help.", pt: "Eu preciso de ajuda.", sound: "ái níid rélp." },
+                    { en: "Where is the bathroom?", pt: "Onde é o banheiro?", sound: "uér is de béthrum?" },
+                    { en: "My flight is delayed.", pt: "Meu voo está atrasado.", sound: "mái fláit is diléid." },
+                ]
+            },
+            {
+                id: "taxi", emoji: "🚕", label: "Táxi / Uber", color: "#F59E0B",
+                phrases: [
+                    { en: "I need a taxi.", pt: "Eu preciso de um táxi.", sound: "ái níid a téksi." },
+                    { en: "Take me to this address.", pt: "Me leve para este endereço.", sound: "têik mi tu dís édrés." },
+                    { en: "How much is it?", pt: "Quanto custa?", sound: "ráu mâtch is it?" },
+                    { en: "Stop here, please.", pt: "Pare aqui, por favor.", sound: "stóp ríar, plíiz." },
+                    { en: "Can I pay by card?", pt: "Posso pagar com cartão?", sound: "kén ái pêi bái card?" },
+                    { en: "Is it far?", pt: "É longe?", sound: "is it fár?" },
+                    { en: "I'm going to the hotel.", pt: "Estou indo para o hotel.", sound: "áim gôuin tu de routél." },
+                    { en: "Turn left. / Turn right.", pt: "Vire à esquerda. / Vire à direita.", sound: "turn léft. / turn ráit." },
+                    { en: "Wait here, please.", pt: "Espere aqui, por favor.", sound: "uêit ríar, plíiz." },
+                    { en: "Keep the change.", pt: "Fique com o troco.", sound: "kíip de tchêindj." },
+                ]
+            },
+            {
+                id: "hotel", emoji: "🏨", label: "Hotel", color: "#8B5CF6",
+                phrases: [
+                    { en: "I have a reservation.", pt: "Eu tenho uma reserva.", sound: "ái rév a résarvêixan." },
+                    { en: "My name is...", pt: "Meu nome é...", sound: "mái nêim is..." },
+                    { en: "Check-in, please.", pt: "Check-in, por favor.", sound: "tchék-in, plíiz." },
+                    { en: "What time is check-out?", pt: "Que horas é o check-out?", sound: "uót táim is tchék-áut?" },
+                    { en: "The Wi-Fi password?", pt: "A senha do Wi-Fi?", sound: "de uái-fái péssword?" },
+                    { en: "I need towels.", pt: "Eu preciso de toalhas.", sound: "ái níid táuels." },
+                    { en: "The room is cold.", pt: "O quarto está frio.", sound: "de rúum is côuld." },
+                    { en: "Is breakfast included?", pt: "O café da manhã está incluído?", sound: "is brékfest inclúdid?" },
+                    { en: "Can I leave my bags?", pt: "Posso deixar minhas malas?", sound: "kén ái líiv mái bégs?" },
+                    { en: "Room number 10.", pt: "Quarto número 10.", sound: "rúum nâmber tén." },
+                ]
+            },
+            {
+                id: "restaurant", emoji: "🍽️", label: "Restaurante", color: "#EF4444",
+                phrases: [
+                    { en: "A table for two.", pt: "Uma mesa para dois.", sound: "a têibol for tú." },
+                    { en: "The menu, please.", pt: "O cardápio, por favor.", sound: "de méniu, plíiz." },
+                    { en: "I'd like water.", pt: "Eu gostaria de água.", sound: "áid láik uóter." },
+                    { en: "No ice, please.", pt: "Sem gelo, por favor.", sound: "nôu áis, plíiz." },
+                    { en: "I'm allergic to...", pt: "Eu sou alérgico a...", sound: "áim alérdjik tu..." },
+                    { en: "The bill, please.", pt: "A conta, por favor.", sound: "de bíl, plíiz." },
+                    { en: "This is delicious!", pt: "Isso está delicioso!", sound: "dís is dilíxas!" },
+                    { en: "Can I pay by card?", pt: "Posso pagar com cartão?", sound: "kén ái pêi bái card?" },
+                    { en: "What do you recommend?", pt: "O que você recomenda?", sound: "uót du iú recaménd?" },
+                    { en: "To go, please.", pt: "Para viagem, por favor.", sound: "tu gôu, plíiz." },
+                ]
+            },
+            {
+                id: "pharmacy", emoji: "💊", label: "Farmácia", color: "#10B981",
+                phrases: [
+                    { en: "I need medicine.", pt: "Eu preciso de remédio.", sound: "ái níid médisan." },
+                    { en: "I have a headache.", pt: "Eu estou com dor de cabeça.", sound: "ái rév a rédêik." },
+                    { en: "I have a fever.", pt: "Eu estou com febre.", sound: "ái rév a fíver." },
+                    { en: "Pain killer, please.", pt: "Analgésico, por favor.", sound: "pêin kíler, plíiz." },
+                    { en: "I feel sick.", pt: "Eu me sinto mal.", sound: "ái fíil sík." },
+                    { en: "Do you have sunscreen?", pt: "Vocês têm protetor solar?", sound: "du iú rév sânscriin?" },
+                    { en: "I need band-aids.", pt: "Eu preciso de band-aids.", sound: "ái níid bénd-êids." },
+                    { en: "My stomach hurts.", pt: "Meu estômago dói.", sound: "mái stâmak rérts." },
+                    { en: "I'm allergic to this.", pt: "Sou alérgico a isso.", sound: "áim alérdjik tu dís." },
+                    { en: "How many times a day?", pt: "Quantas vezes por dia?", sound: "ráu méni táims a dêi?" },
+                ]
+            },
+            {
+                id: "market", emoji: "🛒", label: "Mercado", color: "#F97316",
+                phrases: [
+                    { en: "How much is this?", pt: "Quanto custa isso?", sound: "ráu mâtch is dís?" },
+                    { en: "I need a bag.", pt: "Eu preciso de uma sacola.", sound: "ái níid a bég." },
+                    { en: "Where is the water?", pt: "Onde está a água?", sound: "uér is de uóter?" },
+                    { en: "Do you have milk?", pt: "Vocês têm leite?", sound: "du iú rév mílk?" },
+                    { en: "Cash or card?", pt: "Dinheiro ou cartão?", sound: "késh or card?" },
+                    { en: "I'm just looking.", pt: "Só estou olhando.", sound: "áim djâst lúkin." },
+                    { en: "Is this on sale?", pt: "Isso está em promoção?", sound: "is dís on sêil?" },
+                    { en: "One of these, please.", pt: "Um desses, por favor.", sound: "uan ov díiz, plíiz." },
+                    { en: "Where is the exit?", pt: "Onde é a saída?", sound: "uér is de éxit?" },
+                    { en: "Thank you!", pt: "Obrigado(a)!", sound: "thénk iú!" },
+                ]
+            }
+        ];
+        
+        // ─── STATE ──────────────────────────────────────────────
+        let state = {
+            screen: 'home', // home, flashcard
+            catIndex: null,
+            cardIndex: 0,
+            flipped: false,
+            completed: {}
+        };
+        
+        // ─── RENDER ─────────────────────────────────────────────
+        function render() {
+            const app = document.getElementById('app');
+            
+            if (state.screen === 'home') {
+                app.innerHTML = renderHome();
+            } else if (state.screen === 'flashcard') {
+                app.innerHTML = renderFlashcard();
+            }
+        }
+        
+        function renderHome() {
+            const completedCount = Object.keys(state.completed).length;
+            return `
+                <div class="header">
+                    <div class="emoji-big">🌍</div>
+                    <h1>Inglês de Viagem</h1>
+                    <p class="subtitle">Frases curtas, uma por vez.<br>Toque no card → leia em voz alta → avance.</p>
+                </div>
+                
+                <div class="tip-box tdah">
+                    <div class="tip-title">💡 Técnica pra TDAH</div>
+                    <div class="tip-text">
+                        <b>1.</b> UMA situação por sessão &nbsp; <b>2.</b> Toque → veja o inglês &nbsp; <b>3.</b> Fale em VOZ ALTA &nbsp; <b>4.</b> Repita 3x &nbsp; <b>5.</b> Amanhã, refaça
+                    </div>
+                </div>
+                
+                <div class="tip-box ouro">
+                    <div class="tip-title">🏆 Regra de Ouro</div>
+                    <div class="tip-text">
+                        <b>Uma situação por dia.</b> Hoje faz "Aeroporto", amanhã repete, depois começa "Táxi". <span style="color: #D97706; font-weight: 600;">Repetição espaçada = memória.</span>
+                    </div>
+                </div>
+                
+                <div class="cat-label">ESCOLHA UMA SITUAÇÃO</div>
+                <div class="categories">
+                    ${CATEGORIES.map((cat, i) => `
+                        <button class="cat-btn" onclick="startCategory(${i})">
+                            <div class="cat-icon" style="background: ${cat.color}12; color: ${cat.color};">${cat.emoji}</div>
+                            <div class="cat-info">
+                                <div class="cat-name">${cat.label}</div>
+                                <div class="cat-count">${cat.phrases.length} frases</div>
+                            </div>
+                            ${state.completed[cat.id] ? '<div class="check">✓</div>' : ''}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function renderFlashcard() {
+            const cat = CATEGORIES[state.catIndex];
+            const phrase = cat.phrases[state.cardIndex];
+            const isLast = state.cardIndex === cat.phrases.length - 1;
+            
+            // Build progress bar
+            let progressHTML = '<div class="progress-bar">';
+            for (let i = 0; i < cat.phrases.length; i++) {
+                progressHTML += `<div style="background: ${i < state.cardIndex + 1 ? cat.color : 'rgba(128,128,128,0.15)'}"></div>`;
+            }
+            progressHTML += '</div>';
+            
+            return `
+                <div class="top-bar">
+                    <button class="back-btn" onclick="goHome()">←</button>
+                    <div style="flex: 1;">
+                        <div style="font-size: 15px; font-weight: 700; color: #1a1a1a;">${cat.emoji} ${cat.label}</div>
+                        <div style="font-size: 12px; color: #999;">${state.cardIndex + 1} de ${cat.phrases.length}</div>
+                    </div>
+                </div>
+                
+                ${progressHTML}
+                
+                <div class="flashcard ${state.flipped ? 'flipped' : ''}" style="color: ${cat.color};" onclick="toggleFlip()">
+                    ${!state.flipped ? `
+                        <div class="card-label">Toque para ver</div>
+                        <div class="card-text">${phrase.pt}</div>
+                        <div class="card-hand" style="background: ${cat.color}15;">👆</div>
+                    ` : `
+                        <div style="font-size: 13px; color: #888; font-weight: 500;">${phrase.pt}</div>
+                        <div class="card-text">${phrase.en}</div>
+                        <div class="card-sound" style="background: ${cat.color}12; color: ${cat.color};">🔊 ${phrase.sound}</div>
+                        <div class="card-hint">↑ leia em voz alta!</div>
+                    `}
+                </div>
+                
+                <div class="buttons">
+                    <button onclick="prevCard()" ${state.cardIndex === 0 ? 'disabled' : ''}
+                        style="opacity: ${state.cardIndex === 0 ? 0.5 : 1};">
+                        ← Anterior
+                    </button>
+                    <button class="btn-next" style="background: ${CATEGORIES[state.catIndex].color} !important;" onclick="nextCard()">
+                        ${isLast ? '✓ Concluir' : 'Próxima →'}
+                    </button>
+                </div>
+                
+                ${state.flipped ? `<div class="hint">🎯 Repita em voz alta 3x antes de avançar!</div>` : ''}
+            `;
+        }
+        
+        // ─── FUNCTIONS ──────────────────────────────────────────
+        function startCategory(idx) {
+            state.screen = 'flashcard';
+            state.catIndex = idx;
+            state.cardIndex = 0;
+            state.flipped = false;
+            render();
+        }
+        
+        function goHome() {
+            state.screen = 'home';
+            state.catIndex = null;
+            state.cardIndex = 0;
+            state.flipped = false;
+            render();
+        }
+        
+        function toggleFlip() {
+            state.flipped = !state.flipped;
+            render();
+        }
+        
+        function nextCard() {
+            const cat = CATEGORIES[state.catIndex];
+            if (state.cardIndex < cat.phrases.length - 1) {
+                state.cardIndex++;
+                state.flipped = false;
+                render();
+            } else {
+                state.completed[cat.id] = true;
+                goHome();
+            }
+        }
+        
+        function prevCard() {
+            if (state.cardIndex > 0) {
+                state.cardIndex--;
+                state.flipped = false;
+                render();
+            }
+        }
+        
+        // Initial render
+        render();
+    </script>
+</body>
+</html>
